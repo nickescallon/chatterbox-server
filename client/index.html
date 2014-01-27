@@ -1,0 +1,57 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>chatterbox</title>
+    <link rel="stylesheet" href="styles/styles.css">
+
+    <!-- external javascript -->
+    <script src="bower_components/jquery/jquery.min.js"></script>
+    <script src="bower_components/underscore/underscore-min.js"></script>
+    <script src="bower_components/backbone/backbone-min.js"></script>
+    <script src="bower_components/moment/moment.js"></script>
+    
+    <!-- internal javascript -->
+    <script src="scripts/config.js"></script>
+    <style>
+      body, label{
+        display: block;
+      }
+      ul{
+        list-style: none;
+      }
+      li{
+        margin: 10px 0 0;
+        padding: 10px;
+        border: 1px solid black;
+      }
+      .friend{
+        font-weight: bold;
+      }
+    </style>
+  </head>
+  <body>
+
+    <div id="main">
+      <h1>Chat-Client</h1>
+      <label class='chatRoomLabel'></label>
+      <label class='username'></label>
+      <label class='showUsers'>Friends</label>
+      <ul class='friends'></ul>
+      <form class='sendMessage'>
+        <input type='text' name='message' placeholder='Type a message here...'>
+        <input type='submit'>
+      </form>
+      <label>Choose a chat room</label>
+      <select class='chatRooms'>
+      </select>
+      <label>Create a chat room</label>
+      <form class='createChatRoom'>
+        <input type='text' name='chatRoomName' placeholder='newroom...'>
+        <input type='submit' value='New Room'>
+      </form>
+      <ul class='chats'><ul>
+    </div>
+    <script src="scripts/app.js"></script>
+  </body>
+</html>

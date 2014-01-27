@@ -1,4 +1,4 @@
-var handler = require("../request-handler");
+var handler = require("../request-handler.js");
 
 function StubRequest(url, method, postdata) {
   this.url = url;
@@ -76,6 +76,7 @@ describe("Node Server Request Listener Function", function() {
 
    expect(res._responseCode).toEqual(200);
    var messageLog = JSON.parse(res._data);
+   console.log('messageLog:', messageLog);
    expect(messageLog.length).toEqual(1);
    expect(messageLog[0].username).toEqual("Jono");
    expect(messageLog[0].message).toEqual("Do my bidding!");

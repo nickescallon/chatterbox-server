@@ -1,0 +1,36 @@
+27 Jan 11:38:10 - [33m[nodemon] v1.0.14[39m
+27 Jan 11:38:10 - [33m[nodemon] to restart at any time, enter `rs`[39m
+27 Jan 11:38:10 - [33m[nodemon] watching: *.*[39m
+27 Jan 11:38:10 - [32m[nodemon] starting `node basic-server.js`[39m
+Listening on http://127.0.0.1:8080
+27 Jan 11:38:43 - [33m[nodemon] v1.0.14[39m
+27 Jan 11:38:43 - [33m[nodemon] to restart at any time, enter `rs`[39m
+27 Jan 11:38:43 - [33m[nodemon] watching: *.*[39m
+27 Jan 11:38:43 - [32m[nodemon] starting `node basic-server.js`[39m
+Listening on http://127.0.0.1:8080
+27 Jan 11:38:43 - [31m[nodemon] app crashed - waiting for file changes before starting...[39m
+27 Jan 11:40:57 - [33m[nodemon] v1.0.14[39m
+27 Jan 11:40:57 - [33m[nodemon] to restart at any time, enter `rs`[39m
+27 Jan 11:40:57 - [33m[nodemon] watching: *.*[39m
+27 Jan 11:40:57 - [32m[nodemon] starting `node ./basic-server.js`[39m
+Listening on http://127.0.0.1:8080
+Serving request type GET for url /
+Serving request type GET for url /favicon.ico
+27 Jan 11:41:31 - [31m[nodemon] app crashed - waiting for file changes before starting...[39m
+nodemon ./basic-server.js
+27 Jan 11:42:31 - [33m[nodemon] v1.0.14[39m
+27 Jan 11:42:31 - [33m[nodemon] to restart at any time, enter `rs`[39m
+27 Jan 11:42:31 - [33m[nodemon] watching: *.*[39m
+27 Jan 11:42:31 - [32m[nodemon] starting `node ./basic-server.js`[39m
+Listening on http://127.0.0.1:8080
+27 Jan 11:45:30 - [32m[nodemon] restarting due to changes...[39m
+27 Jan 11:45:30 - [32m[nodemon] starting `node ./basic-server.js`[39m
+27 Jan 11:45:30 - [31m[nodemon] app crashed - waiting for file changes before starting...[39m
+27 Jan 11:45:44 - [32m[nodemon] restarting due to changes...[39m
+27 Jan 11:45:44 - [32m[nodemon] starting `node ./basic-server.js`[39m
+27 Jan 11:45:44 - [31m[nodemon] app crashed - waiting for file changes before starting...[39m
+27 Jan 11:50:21 - [33m[nodemon] v1.0.14[39m
+27 Jan 11:50:21 - [33m[nodemon] to restart at any time, enter `rs`[39m
+27 Jan 11:50:21 - [33m[nodemon] watching: *.*[39m
+27 Jan 11:50:21 - [32m[nodemon] starting `node basic-server.js`[39m
+Listening on http://127.0.0.1:8080
