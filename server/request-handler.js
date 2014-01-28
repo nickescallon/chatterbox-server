@@ -5,10 +5,37 @@
  * this file and include it in basic-server.js so that it actually works.
  * *Hint* Check out the node module documentation at http://nodejs.org/api/modules.html. */
 
-var storage = [];
+
+
+var storage;
 var url = require('url');
 var fs = require('fs');
 var _und = require('underscore');
+
+//--------------- Read the state of the memory from the file system ----------------------//
+
+(function(){
+  fs.readFile('./log', function(err, data) {
+      if(err) {
+          console.log(err);
+      } else {
+          storage = JSON.parse(data);
+          console.log("Data was read from file.");
+      }
+  }); 
+})();
+
+//--------------- Re-write the memory state on an interval --------------------------------//
+
+setInterval(function(){
+  fs.writeFile('./log', JSON.stringify(storage), function(err) {
+      if(err) {
+          console.log(err);
+      } else {
+          console.log("Memory saved to disk.", (new Date()));
+      }
+  }); 
+}, 10000);
 
 module.exports.handleRequest = function(request, response) {
   /* the 'request' argument comes from nodes http module. It includes info about the
@@ -46,14 +73,15 @@ module.exports.handleRequest = function(request, response) {
         returnData = _und(storage).map(function(item){return item.data;});
       }
 
-      if (url_parts.query.order){
-        var sortAscending = false;
-        if (url_parts.query.order[0] === '-'){
-          sortAscending = true;
-        }
+      // if (url_parts.query.order){
 
-        returnData = _und.sortBy(returnData, url_parts.query.order);
-      }
+      //   if (url_parts.query.order[0] === '-'){
+      //     returnData = _und(returnData).map(function(datum){return JSON.parse(datum);}).sortBy(url_parts.query.order.slice(1))
+      //     returnData = _und.sortBy(returnData, url_parts.query.order.slice(1)).reverse();
+      //   } else {
+      //     returnDate = _und.sortBy(returnData, url_parts.query.order);
+      //   }
+      // }
       
       console.log(statusCode);
 
