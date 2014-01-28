@@ -51,12 +51,13 @@ var postMessage = function(message) {
 
 var getMessages = function(options, callback) {
     count = 0;
-    // options || (options = {
-    //     order: '-createdAt',
-    //     limit: 100
-    // });
+    options || (options = {
+        order: '-createdAt',
+        limit: 100
+    });
+    // options = {};
     callback || (callback = parseGet);
-    $.getJSON(url, /*options,*/ callback);
+    $.getJSON(url, options, callback);
 };
 
 var roomname = 'testING';

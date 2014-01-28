@@ -6,6 +6,8 @@
  * *Hint* Check out the node module documentation at http://nodejs.org/api/modules.html. */
 
 var storage = [];
+var url = require('url');
+var _und = require('underscore');
 
 module.exports.handleRequest = function(request, response) {
   /* the 'request' argument comes from nodes http module. It includes info about the
@@ -15,15 +17,13 @@ module.exports.handleRequest = function(request, response) {
    * http://nodemanual.org/0.8.14/nodejs_ref_guide/http.html */
 
 
-
-
+  var url_parts = url.parse(request.url, true);
+  var url_path  = url_parts.pathname;
 
   console.log("Serving request type " + request.method + " for url " + request.url);
   var statusCode;
   var returnData;
 
-  console.log('url: ', request.url);
-  console.log('verb: ', request.method);
 
   /* Without this line, this server wouldn't work. See the note
    * below about CORS. */
@@ -33,12 +33,20 @@ module.exports.handleRequest = function(request, response) {
 
   
 
-  if (request.url === 'http://127.0.0.1:8080/classes/room1' || request.url === "/classes/messages" || request.url === 'http://127.0.0.1:8080/classes/messages?order=-createdAt&limit=100') {
+  if (url_path === '/classes/messages') {
 
     if (request.method === "GET"){
       statusCode = 200;
-      returnData = storage;
+      if(url_parts.query.limit !== undefined){
+        returnData = _und.first(storage, url_parts.query.limit);
+      } else {
+        returnData = storage;
+      }
+      
       console.log(statusCode);
+
+      
+
       /* .writeHead() tells our server what HTTP status code to send back */
       response.writeHead(statusCode, headers);
 
