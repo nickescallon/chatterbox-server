@@ -38,9 +38,18 @@ module.exports.handleRequest = function(request, response) {
     if (request.method === "GET"){
       statusCode = 200;
       if(url_parts.query.limit !== undefined){
-        returnData = _und.first(storage, url_parts.query.limit);
+        returnData = _und(storage).first(url_parts.query.limit).map(function(item){return item.data;});
       } else {
-        returnData = storage;
+        returnData = _und(storage).map(function(item){return item.data;});
+      }
+
+      if (url_parts.query.order){
+        var sortAscending = false;
+        if (url_parts.query.order[0] === '-'){
+          sortAscending = true;
+        }
+
+        returnData = _und.sortBy(returnData, url_parts.query.order);
       }
       
       console.log(statusCode);
@@ -74,7 +83,9 @@ module.exports.handleRequest = function(request, response) {
 
       request.on('end', function(data){
         _postData = _dataString;
-        storage.push(_postData);
+        var dateCreatedAt = (new Date()).valueOf();
+        storage.push({createdAt: dateCreatedAt,
+          data: _postData});
         response.end(JSON.stringify('foobar'))
       });
 
