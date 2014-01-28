@@ -1,4 +1,5 @@
-var url = 'https://api.parse.com/1/classes/chatterbox';
+// var url = 'https://api.parse.com/1/classes/chatterbox';
+var url = 'http://127.0.0.1:8080/classes/messages';
 var username = window.location.search.split('=')[1];
 var chatRooms = {};
 var count = 0;
@@ -50,12 +51,12 @@ var postMessage = function(message) {
 
 var getMessages = function(options, callback) {
     count = 0;
-    options || (options = {
-        order: '-createdAt',
-        limit: 100
-    });
+    // options || (options = {
+    //     order: '-createdAt',
+    //     limit: 100
+    // });
     callback || (callback = parseGet);
-    $.getJSON(url, options, callback);
+    $.getJSON(url, /*options,*/ callback);
 };
 
 var roomname = 'testING';
@@ -126,7 +127,9 @@ $(document).ready(function() {
     checkRooms();
     var getByChatRoom = function() {
         getMessages(undefined, function(data) {
-            var results = data.results;
+            var results = _.map(data, function(value){
+                return JSON.parse(value);
+            });
             var resultsInRoom = _.filter(results, function(result) {
                 return result.roomname === roomname
             });

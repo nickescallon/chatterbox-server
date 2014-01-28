@@ -33,7 +33,7 @@ module.exports.handleRequest = function(request, response) {
 
   
 
-  if (request.url === 'http://127.0.0.1:8080/classes/room1' || request.url === "/classes/messages") {
+  if (request.url === 'http://127.0.0.1:8080/classes/room1' || request.url === "/classes/messages" || request.url === 'http://127.0.0.1:8080/classes/messages?order=-createdAt&limit=100') {
 
     if (request.method === "GET"){
       statusCode = 200;
@@ -72,6 +72,12 @@ module.exports.handleRequest = function(request, response) {
 
       // ---------------------------------------------------- //
 
+    }
+
+    if (request.method === "OPTIONS"){
+      statusCode = 200;
+      response.writeHead(statusCode, headers);
+      response.end('hello');
     }
 
   } else {
