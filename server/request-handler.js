@@ -14,30 +14,16 @@ module.exports.handleRequest = function(request, response) {
   /* Documentation for both request and response can be found at
    * http://nodemanual.org/0.8.14/nodejs_ref_guide/http.html */
 
+
+
+
+
   console.log("Serving request type " + request.method + " for url " + request.url);
   var statusCode;
   var returnData;
 
-  if (request.url === 'http://127.0.0.1:8080/classes/room1') {
-
-    if (request.method === "GET"){
-      statusCode = 200;
-      returnData = storage;
-    }
-
-    if (request.method === "POST"){
-      statusCode = 201;
-      // if (storage[request.url]){
-      //   storage[request.url].push(request._postData)
-      // } else {
-      //   storage[request.url] = [request._postData]
-      // }
-      storage.push(request._postData)
-    }
-
-  } else {
-    statusCode = 404;
-  }
+  console.log('url: ', request.url);
+  console.log('verb: ', request.method);
 
   /* Without this line, this server wouldn't work. See the note
    * below about CORS. */
@@ -45,14 +31,58 @@ module.exports.handleRequest = function(request, response) {
 
   headers['Content-Type'] = "text/plain";
 
-  /* .writeHead() tells our server what HTTP status code to send back */
-  response.writeHead(statusCode, headers);
+  
 
-  /* Make sure to always call response.end() - Node will not send
+  if (request.url === 'http://127.0.0.1:8080/classes/room1' || request.url === "/classes/messages") {
+
+    if (request.method === "GET"){
+      statusCode = 200;
+      returnData = storage;
+      console.log(statusCode);
+      /* .writeHead() tells our server what HTTP status code to send back */
+      response.writeHead(statusCode, headers);
+
+      /* Make sure to always call response.end() - Node will not send
    * anything back to the client until you do. The string you pass to
    * response.end() will be the body of the response - i.e. what shows
    * up in the browser.*/
-  response.end(JSON.stringify(returnData));
+    response.end(JSON.stringify(returnData));
+    }
+
+    if (request.method === "POST"){
+      statusCode = 201;
+      console.log(statusCode);
+      /* .writeHead() tells our server what HTTP status code to send back */
+      response.writeHead(statusCode, headers);
+
+      // -------------- Handle POST request data ------------ //
+
+      var _postData;
+      var _dataString = '';
+
+      request.on('data', function(data1){
+        _dataString += data1;
+      });
+
+      request.on('end', function(data){
+        _postData = _dataString;
+        storage.push(_postData);
+        response.end(JSON.stringify('foobar'))
+      });
+
+      // ---------------------------------------------------- //
+
+    }
+
+  } else {
+    statusCode = 404;
+    response.writeHead(statusCode, headers);
+    response.end('404');
+  }
+
+  
+
+  
 };
 
 /* These headers will allow Cross-Origin Resource Sharing (CORS).
