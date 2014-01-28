@@ -7,6 +7,7 @@
 
 var storage = [];
 var url = require('url');
+var fs = require('fs');
 var _und = require('underscore');
 
 module.exports.handleRequest = function(request, response) {
@@ -30,6 +31,8 @@ module.exports.handleRequest = function(request, response) {
   var headers = defaultCorsHeaders;
 
   headers['Content-Type'] = "text/plain";
+
+  
 
   
 
@@ -98,6 +101,42 @@ module.exports.handleRequest = function(request, response) {
       response.writeHead(statusCode, headers);
       response.end('hello');
     }
+
+  
+
+  //---------------------- Serving the App HTML and public resources -----------------------//
+
+  } else if (url_path === '/') {
+    statusCode = 200;
+    response.writeHead(statusCode, {"Content-Type": "text/html"});
+
+    fs.readFile('../client/index.html', function (err, html){
+      if (err) {
+        throw new Error('there was an error rendering the index');
+      }
+      response.write(html);
+      response.end();
+    });
+  
+  } else if (url_path) {
+
+    statusCode = 200;
+    response.writeHead(statusCode, {"Content-Type": "text"});
+
+    fs.readFile('../client/' + url_path, function (err, file){
+      if (err) {
+        throw new Error('there was an error rendering the index');
+      }
+      response.write(file);
+      response.end();
+    });
+
+
+
+  //------------------------- Respond with an error code for unsupported routes ---------------------------------//
+
+
+
 
   } else {
     statusCode = 404;
